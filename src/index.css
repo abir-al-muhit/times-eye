@@ -1,17 +1,14 @@
 @import "tailwindcss";
 
 /* ============================================================
-   TIMES EYE — Dark Optical Laboratory
-   Canvas: deep optic charcoal-navy · Light text: optical white
-   Signature accent: lens-cyan (reflection off treated glass)
-   Secondary: warm signal-amber (photosun tint) + optic blue
-   Fonts: Fraunces (display) + Inter (body), self-hosted.
-   Distinct from: hypekix (concrete/volt), matro-orb (cream/
-   espresso/orange), kollol (dark+flame), portfolio (dark+lime).
+   TIMES EYE — Warm Editorial Eyewear (LIGHT)
+   Canvas: warm ivory · Ink: espresso · Accent: tortoise-amber
+   A refined optician feel: generous whitespace, hairline rules,
+   one signature accent, self-hosted Fraunces serif + Inter.
    ============================================================ */
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @font-face {
@@ -30,18 +27,16 @@
 }
 
 @theme {
-  --color-canvas: #0a0e11;      /* page base — deep optic charcoal */
-  --color-ink: #e9f0f1;         /* primary light text */
-  --color-ink-soft: #b9c4c6;    /* secondary light text */
-  --color-smoke: #7b878a;       /* muted text */
-  --color-line: #1d262b;        /* hairlines & borders */
-  --color-panel: #10171b;       /* raised cards */
-  --color-onyx: #0d1317;        /* deep panels */
-  --color-cyan: #39d0c0;        /* signature lens reflection */
-  --color-cyan-soft: #7fe3d8;   /* lighter lens cyan */
-  --color-blue: #5aa7ff;        /* blue-cut / optic blue */
-  --color-amber: #e0a458;       /* photosun warm tint */
-  --color-blaze: #ff4d2e;       /* urgency / sale accent */
+  --color-canvas: #f5f1e8;      /* warm ivory page bg */
+  --color-panel: #fbf7ef;       /* raised card / lighter lift */
+  --color-ink: #201a13;         /* primary text — warm espresso */
+  --color-ink-soft: #5a5144;    /* secondary text */
+  --color-smoke: #8a7f6f;       /* muted text / captions */
+  --color-line: #e2d8c8;        /* hairlines & borders */
+  --color-line-strong: #cfc2ad;
+  --color-tortoise: #a86a2a;    /* signature accent (amber) */
+  --color-tortoise-deep: #8a5220; /* hover accent */
+  --color-inkband: #201a13;     /* dark ink band (marquee/footer) */
 
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
@@ -63,30 +58,39 @@ body {
   overflow-x: hidden;
 }
 
-/* display serif (Fraunces — optional optical axis feel) */
+/* display serif */
 .display {
   font-family: var(--font-display);
-  font-weight: 340;
-  line-height: 0.95;
-  letter-spacing: -0.01em;
+  font-weight: 380;
+  line-height: 0.98;
+  letter-spacing: -0.015em;
 }
 .display-bold {
   font-family: var(--font-display);
   font-weight: 500;
-  line-height: 0.95;
-  letter-spacing: -0.01em;
+  line-height: 0.96;
+  letter-spacing: -0.015em;
 }
 
 /* small uppercase label */
 .eyebrow {
   font-family: var(--font-body);
   text-transform: uppercase;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.26em;
   font-size: 0.66rem;
   font-weight: 600;
 }
 
-/* raked lens-reflection shine used across hero + lens cards */
+/* lens form outline — the configurator card ring */
+.lens-card {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  box-shadow:
+    0 1px 0 var(--color-line),
+    0 24px 60px -50px rgba(32, 26, 19, 0.35);
+}
+
+/* subtle specular sweep for product panels */
 .lens-shine {
   position: relative;
   overflow: hidden;
@@ -97,31 +101,22 @@ body {
   inset: 0;
   background: linear-gradient(
     115deg,
-    transparent 32%,
-    rgba(255, 255, 255, 0.16) 46%,
-    transparent 60%
+    transparent 34%,
+    rgba(255, 255, 255, 0.55) 48%,
+    transparent 62%
   );
-  transform: translateX(-120%);
-  animation: lensweep 5.5s ease-in-out infinite;
+  transform: translateX(-130%);
+  animation: lensweep 6s ease-in-out infinite;
   pointer-events: none;
 }
 @keyframes lensweep {
-  0% { transform: translateX(-120%); }
-  45% { transform: translateX(120%); }
-  100% { transform: translateX(120%); }
-}
-
-/* subtle colour-shift sheen (blue-cut / photosun variants) */
-@keyframes tintpulse {
-  0%, 100% { opacity: 0.55; }
-  50% { opacity: 1; }
-}
-.tint-pulse {
-  animation: tintpulse 4s ease-in-out infinite;
+  0% { transform: translateX(-130%); }
+  45% { transform: translateX(130%); }
+  100% { transform: translateX(130%); }
 }
 
 ::selection {
-  background: var(--color-cyan);
+  background: var(--color-tortoise);
   color: var(--color-canvas);
 }
 ::-webkit-scrollbar {
@@ -131,11 +126,11 @@ body {
   background: var(--color-canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-smoke);
+  background: var(--color-line-strong);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-cyan);
+  background: var(--color-tortoise);
 }
 
 a {
@@ -146,25 +141,25 @@ button {
   font-family: inherit;
 }
 
-/* film grain for texture */
-.grain {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  opacity: 0.4;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/></svg>");
-}
-
 /* hairline divider */
 .hairline {
   height: 1px;
   background: var(--color-line);
 }
 
-/* outlined display text */
+/* outlined display text on light */
 .display-outline {
-  -webkit-text-stroke: 1px rgba(233, 240, 241, 0.25);
+  -webkit-text-stroke: 1px rgba(32, 26, 19, 0.12);
   color: transparent;
+}
+
+/* subtle warm grain */
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/></svg>");
 }

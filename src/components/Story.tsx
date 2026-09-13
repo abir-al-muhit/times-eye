@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { pillars, story } from "../data/brand";
 import { fadeUp, stagger, viewport } from "./anim";
 
-// Story + trust pillars (Lunettes-style trust badges).
+// Story + trust pillars (Lunettes-style). Clean editorial split.
 export default function Story() {
   return (
     <section id="why" className="relative bg-canvas py-24 lg:py-32">
@@ -25,8 +25,8 @@ export default function Story() {
             className="lg:sticky lg:top-28 lg:self-start"
           >
             <div className="mb-5 flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-cyan" />
-              <span className="eyebrow text-cyan">{story.label}</span>
+              <span className="h-[2px] w-8 bg-tortoise" />
+              <span className="eyebrow text-tortoise">{story.label}</span>
             </div>
             <h2 className="display text-6xl leading-none tracking-tight text-ink sm:text-7xl">
               {story.title.map((l) => (
@@ -53,9 +53,9 @@ export default function Story() {
                 className="group border-t border-line py-8 last:border-b"
               >
                 <div className="flex items-baseline gap-5">
-                  <span className="display text-sm text-cyan/70">0{i + 1}</span>
+                  <span className="display text-sm text-tortoise/70">0{i + 1}</span>
                   <div>
-                    <h3 className="display text-3xl tracking-wide text-ink transition-colors group-hover:text-cyan">
+                    <h3 className="display text-3xl tracking-wide text-ink transition-colors group-hover:text-tortoise">
                       {v.t}
                     </h3>
                     <p className="mt-2 max-w-md text-[14px] leading-relaxed text-ink-soft">{v.d}</p>
@@ -66,22 +66,22 @@ export default function Story() {
           </motion.div>
         </div>
 
-        {/* trusted-in strip */}
+        {/* trusted strip */}
         <motion.div
           variants={stagger}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="mt-20 grid grid-cols-2 gap-4 lg:grid-cols-4"
+          className="mt-20 grid grid-cols-2 gap-4 sm:grid-cols-4"
         >
           {pillars.map((p) => (
             <motion.div
               key={p.label}
               variants={fadeUp}
-              className="rounded-2xl border border-line bg-panel p-7 text-center transition-colors hover:border-cyan/40"
+              className="rounded-2xl border border-line bg-panel p-7 text-center transition-colors hover:border-tortoise/40"
             >
-              <div className="display text-4xl text-cyan">{p.stat}</div>
-              <div className="eyebrow mt-3 text-[0.6rem] text-ink-soft">{p.label}</div>
+              <div className="display text-4xl text-tortoise">{p.stat}</div>
+              <div className="eyebrow mt-3 text-smoke">{p.label}</div>
               <p className="mt-2 text-[12px] leading-relaxed text-ink-soft">{p.note}</p>
             </motion.div>
           ))}

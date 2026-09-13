@@ -14,17 +14,17 @@ export default function Footer() {
           {/* brand */}
           <div className="flex items-start gap-3">
             <svg viewBox="0 0 40 40" className="h-9 w-9" aria-hidden>
-              <g stroke="var(--color-cyan)" strokeWidth="1.6" fill="none">
+              <g stroke="var(--color-tortoise)" strokeWidth="1.8" fill="none">
                 <path d="M3 20 C 10 8, 30 8, 37 20 C 30 32, 10 32, 3 20 Z" />
-                <circle cx="20" cy="20" r="7" fill="var(--color-cyan)" />
+                <circle cx="20" cy="20" r="7" fill="var(--color-tortoise)" />
                 <circle cx="20" cy="20" r="2.4" fill="var(--color-canvas)" />
               </g>
             </svg>
             <div>
-              <div className="display text-3xl leading-none tracking-[0.06em] text-ink">
-                TIMES<span className="text-cyan"> EYE</span>
+              <div className="display text-3xl leading-none tracking-[0.02em] text-ink">
+                TIMES<span className="text-tortoise"> EYE</span>
               </div>
-              <div className="mt-1 eyebrow text-[0.55rem] text-smoke">{brand.tagline}</div>
+              <div className="mt-1 eyebrow text-smoke">{brand.tagline}</div>
             </div>
           </div>
 
@@ -34,7 +34,7 @@ export default function Footer() {
               <button
                 key={item.id}
                 onClick={() => jump(item.id)}
-                className="eyebrow text-[0.6rem] text-smoke transition-colors hover:text-cyan"
+                className="eyebrow text-ink-soft transition-colors hover:text-tortoise"
               >
                 {item.label}
               </button>
@@ -43,10 +43,10 @@ export default function Footer() {
 
           {/* contact */}
           <div className="space-y-1 text-sm text-ink-soft">
-            <a href={`tel:${`+${brand.whatsapp}`}`} className="block hover:text-cyan">
+            <a href={`tel:${`+${brand.whatsapp}`}`} className="block hover:text-tortoise">
               +{brand.whatsapp}
             </a>
-            <a href={`mailto:${brand.email}`} className="block hover:text-cyan">
+            <a href={`mailto:${brand.email}`} className="block hover:text-tortoise">
               {brand.email}
             </a>
             <div className="text-smoke">{brand.location}</div>
@@ -56,16 +56,16 @@ export default function Footer() {
         <div className="hairline my-10 bg-line" />
 
         <div className="flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
-          <p className="eyebrow text-[0.55rem] text-smoke">
+          <p className="eyebrow text-smoke">
             © {new Date().getFullYear()} TIMES EYE · Gazipur, Dhaka · COD nationwide
           </p>
-          <p className="flex items-center gap-2 eyebrow text-[0.55rem] text-smoke">
+          <p className="flex items-center gap-2 eyebrow text-smoke">
             Crafted by
             <a
               href="https://matrocreative.studio"
               target="_blank"
               rel="noreferrer"
-              className="text-cyan hover:text-cyan-soft"
+              className="text-tortoise hover:text-tortoise-deep"
             >
               MATRO CREATIVE
             </a>

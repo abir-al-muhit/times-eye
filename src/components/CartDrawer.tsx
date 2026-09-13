@@ -23,7 +23,7 @@ export default function CartDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setOpen(false)}
-            className="fixed inset-0 z-[90] bg-black/60"
+            className="fixed inset-0 z-[90] bg-ink/45"
           />
           <motion.aside
             initial={{ x: "100%" }}
@@ -36,7 +36,7 @@ export default function CartDrawer() {
               <span className="display text-xl text-ink">Your bag</span>
               <button
                 onClick={() => setOpen(false)}
-                className="flex h-8 w-8 items-center justify-center border border-line text-ink transition-colors hover:border-cyan hover:text-cyan"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-tortoise hover:text-tortoise"
                 aria-label="Close"
               >
                 ✕
@@ -49,12 +49,12 @@ export default function CartDrawer() {
               ) : (
                 <ul className="space-y-4">
                   {items.map(({ product: p, qty }) => (
-                    <li key={p.id} className="flex items-center gap-4 rounded-xl border border-line bg-panel p-3">
-                      <div
-                        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-lg border border-line"
-                        style={{ background: `linear-gradient(150deg, ${p.tone}, #0c1116)` }}
-                      >
-                        <span className="display text-xl text-white/20">{p.name[0]}</span>
+                    <li key={p.id} className="flex items-center gap-4 rounded-xl border border-line bg-white/60 p-3">
+                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-line bg-white">
+                        <svg viewBox="0 0 180 120" className="w-9" aria-hidden>
+                          <ellipse cx="52" cy="60" rx="44" ry="52" fill="rgba(255,255,255,0.2)" stroke={p.frame} strokeWidth="4" />
+                          <ellipse cx="128" cy="60" rx="44" ry="52" fill="rgba(255,255,255,0.2)" stroke={p.frame} strokeWidth="4" />
+                        </svg>
                       </div>
                       <div className="flex-1">
                         <p className="display text-sm text-ink">{p.name}</p>
@@ -65,7 +65,7 @@ export default function CartDrawer() {
                       </div>
                       <button
                         onClick={() => remove(p.id)}
-                        className="text-xs underline text-smoke transition-colors hover:text-cyan"
+                        className="text-xs underline text-smoke transition-colors hover:text-tortoise"
                       >
                         Remove
                       </button>
@@ -77,14 +77,14 @@ export default function CartDrawer() {
 
             <div className="border-t border-line px-6 py-5">
               <div className="mb-4 flex items-center justify-between">
-                <span className="eyebrow text-[0.6rem] text-smoke">Total</span>
-                <span className="display text-xl text-cyan">৳ {total.toLocaleString()}</span>
+                <span className="eyebrow text-smoke">Total</span>
+                <span className="display text-xl text-tortoise">৳ {total.toLocaleString()}</span>
               </div>
               <a
                 href={`https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(msg)}`}
                 target="_blank"
                 rel="noreferrer"
-                className={`block rounded-xl bg-cyan py-4 text-center text-sm font-semibold tracking-wide text-canvas transition-colors hover:bg-cyan-soft ${
+                className={`block rounded-full bg-ink py-4 text-center text-sm font-semibold tracking-wide text-canvas transition-colors hover:bg-tortoise ${
                   items.length === 0 ? "pointer-events-none opacity-40" : ""
                 }`}
               >
