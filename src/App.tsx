@@ -1,44 +1,42 @@
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { CartProvider } from "./components/cart";
 import Nav from "./components/Nav";
-import Hero from "./components/Hero";
-import Brands from "./components/Brands";
-import Marquee from "./components/Marquee";
-import Collections from "./components/Collections";
-import Shop from "./components/Shop";
-import Lenses from "./components/Lenses";
-import Watches from "./components/Watches";
-import Story from "./components/Story";
-import Visit from "./components/Visit";
 import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
 import WhatsAppFab from "./components/WhatsAppFab";
+import Home from "./pages/Home";
+import CollectionPage from "./pages/CollectionPage";
+import ProductPage from "./pages/ProductPage";
 
-// TIMES EYE — premium eyewear flagship e-com.
-// Hero (real client banners) → brands → collections → shop (new/
-// best/hot tabs with live color swatches) → lenses → watches →
-// why → visit. Each frame opens a product-build modal (prescription
-// + lens). Cart → WhatsApp checkout; gateway later.
+// scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
+
+// TIMES EYE — real multi-page store (React Router)
 export default function App() {
   return (
     <CartProvider>
-      <div id="top" className="relative min-h-screen bg-canvas text-ink">
-        <div className="grain" aria-hidden />
-        <Nav />
-        <main>
-          <Hero />
-          <Brands />
-          <Marquee />
-          <Collections />
-          <Shop />
-          <Lenses />
-          <Watches />
-          <Story />
-          <Visit />
-        </main>
-        <Footer />
-        <CartDrawer />
-        <WhatsAppFab />
-      </div>
+      <BrowserRouter>
+        <ScrollToTop />
+        <div className="relative min-h-screen bg-canvas text-ink">
+          <Nav />
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/collections/:id" element={<CollectionPage />} />
+              <Route path="/product/:id" element={<ProductPage />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+          <Footer />
+          <CartDrawer />
+          <WhatsAppFab />
+        </div>
+      </BrowserRouter>
     </CartProvider>
   );
 }

@@ -32,14 +32,28 @@
   --color-ink: #201a13;         /* primary text — warm espresso */
   --color-ink-soft: #5a5144;    /* secondary text */
   --color-smoke: #8a7f6f;       /* muted text / captions */
+  --color-ink-mute: #8a7f6f;    /* muted text */
   --color-line: #e2d8c8;        /* hairlines & borders */
   --color-line-strong: #cfc2ad;
-  --color-blue: #2f5fb0;        /* signature accent — optic blue (client brand is bluish) */
+  --color-blue: #2f5fb0;        /* signature accent — optic blue */
   --color-blue-deep: #1f4688;   /* hover / selected accent */
-  --color-inkband: #201a13;     /* dark ink band (marquee/footer) */
+  --color-red: #d63e2b;
+  --color-green: #1f9d61;
+  --color-inkband: #201a13;     /* dark ink band */
 
   --font-display: "Fraunces", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@utility glass {
+  background: color-mix(in srgb, var(--color-panel) 70%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid var(--color-line);
+}
+@utility glass-strong {
+  background: #ffffff;
+  border: 1px solid var(--color-line);
 }
 
 * {

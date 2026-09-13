@@ -90,12 +90,26 @@ export type Collection = {
   shape: string;
 };
 export const collections: Collection[] = [
-  { id: "c1", name: "Men's Collection", type: "MEN'S", href: "#shop", count: "35+ styles", tone: "linear-gradient(150deg,#1f4688,#dde6f5)", frame: "#fff", shape: "aviator" },
-  { id: "c2", name: "Women's Collection", type: "WOMEN'S", href: "#shop", count: "40+ styles", tone: "linear-gradient(150deg,#b5738a,#f0dfe5)", frame: "#fff", shape: "cat" },
-  { id: "c3", name: "Brand Collection", type: "BRANDS", href: "#shop", count: "Top labels", tone: "linear-gradient(150deg,#4a3d2a,#efe6d4)", frame: "#fff", shape: "round" },
-  { id: "c4", name: "Premium Tier", type: "PREMIUM", href: "#shop", count: "Limited", tone: "linear-gradient(150deg,#2c2c2c,#6b6b6b)", frame: "#fff", shape: "square" },
-  { id: "c5", name: "Custom Build", type: "CUSTOM", href: "#shop", count: "Made for you", tone: "linear-gradient(150deg,#3c6e3f,#dfeae0)", frame: "#fff", shape: "round" },
+  { id: "all", name: "All Collections", type: "ALL", href: "/collections/all", count: "Everything", tone: "linear-gradient(150deg,#1f4688,#dde6f5)", frame: "#fff", shape: "aviator" },
+  { id: "men", name: "Men's Collection", type: "MEN'S", href: "/collections/men", count: "Men", tone: "linear-gradient(150deg,#1f4688,#d7e2f2)", frame: "#fff", shape: "aviator" },
+  { id: "women", name: "Women's Collection", type: "WOMEN'S", href: "/collections/women", count: "Women", tone: "linear-gradient(150deg,#b5738a,#f0dfe5)", frame: "#fff", shape: "cat" },
+  { id: "brand", name: "Brand Collection", type: "BRANDS", href: "/collections/brand", count: "Brands", tone: "linear-gradient(150deg,#4a3d2a,#efe6d4)", frame: "#fff", shape: "round" },
+  { id: "premium", name: "Premium Tier", type: "PREMIUM", href: "/collections/premium", count: "Limited", tone: "linear-gradient(150deg,#2c2c2c,#6b6b6b)", frame: "#fff", shape: "square" },
+  { id: "custom", name: "Custom Build", type: "CUSTOM", href: "/collections/custom", count: "Custom", tone: "linear-gradient(150deg,#3c6e3f,#dfeae0)", frame: "#fff", shape: "round" },
 ];
+
+/* collection → product matcher (drives the separate /collections/:id pages) */
+export function matchesCollection(id: string, p: Piece): boolean {
+  switch (id) {
+    case "all": return true;
+    case "men": return p.gender === "Men";
+    case "women": return p.gender === "Women";
+    case "premium": return p.tag === "Premium" || (p.compareAt ? true : false);
+    case "brand": return !!p.brand && p.brand !== "Times";
+    case "custom": return p.swatches.length >= 3;
+    default: return true;
+  }
+}
 
 /* ---------------- LENS TYPES (for product config) --------- */
 export type LensType = {

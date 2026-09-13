@@ -1,16 +1,11 @@
-import { brand, navbar } from "../data/brand";
+import { Link } from "react-router-dom";
+import { brand, collections } from "../data/brand";
 
 export default function Footer() {
-  const jump = (id: string) => {
-    const el = document.querySelector(`#${id}`) as HTMLElement | null;
-    if (el) window.__lenis?.scrollTo(el, { offset: -70 });
-    else window.scrollTo({ top: 0 });
-  };
-
   return (
-    <footer className="relative border-t border-line bg-canvas pb-10 pt-16">
-      <div className="mx-auto max-w-[1400px] px-5 lg:px-10">
-        <div className="flex flex-col justify-between gap-10 lg:flex-row lg:items-start">
+    <footer className="relative border-t border-line bg-canvas pb-10 pt-14">
+      <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <div className="flex flex-col justify-between gap-10 md:flex-row md:items-start">
           {/* brand */}
           <div className="flex items-start gap-3">
             <svg viewBox="0 0 40 40" className="h-9 w-9" aria-hidden>
@@ -21,34 +16,33 @@ export default function Footer() {
               </g>
             </svg>
             <div>
-              <div className="display text-3xl leading-none tracking-[0.02em] text-ink">
+              <div className="font-display text-2xl font-bold leading-none text-ink">
                 TIMES<span className="text-blue"> EYE</span>
               </div>
               <div className="mt-1 eyebrow text-smoke">{brand.tagline}</div>
             </div>
           </div>
 
-          {/* nav */}
+          {/* shop links */}
           <div className="flex flex-wrap gap-x-8 gap-y-3">
-            {navbar.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => jump(item.id)}
-                className="eyebrow text-ink-soft transition-colors hover:text-blue"
+            {collections.slice(0, 6).map((c) => (
+              <Link
+                key={c.id}
+                to={c.href}
+                className="text-xs font-semibold uppercase tracking-wider text-ink-soft transition-colors hover:text-blue"
               >
-                {item.label}
-              </button>
+                {c.name}
+              </Link>
             ))}
+            <Link to="/" className="text-xs font-semibold uppercase tracking-wider text-ink-soft transition-colors hover:text-blue">
+              Shop
+            </Link>
           </div>
 
           {/* contact */}
           <div className="space-y-1 text-sm text-ink-soft">
-            <a href={`tel:${`+${brand.whatsapp}`}`} className="block hover:text-blue">
-              +{brand.whatsapp}
-            </a>
-            <a href={`mailto:${brand.email}`} className="block hover:text-blue">
-              {brand.email}
-            </a>
+            <a href={`tel:+${brand.whatsapp}`} className="block hover:text-blue">+{brand.whatsapp}</a>
+            <a href={`mailto:${brand.email}`} className="block hover:text-blue">{brand.email}</a>
             <div className="text-smoke">{brand.location}</div>
           </div>
         </div>
