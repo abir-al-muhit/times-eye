@@ -18,7 +18,7 @@ export default function Visit() {
       <div
         aria-hidden
         className="pointer-events-none absolute right-0 top-1/2 h-[460px] w-[460px] -translate-y-1/2 rounded-full opacity-20 blur-[130px]"
-        style={{ background: "var(--color-tortoise)" }}
+        style={{ background: "var(--color-blue)" }}
       />
 
       <div className="relative mx-auto grid max-w-[1400px] gap-14 px-5 lg:grid-cols-2 lg:gap-12 lg:px-10">
@@ -30,12 +30,12 @@ export default function Visit() {
           className="flex flex-col justify-center"
         >
           <div className="mb-5 flex items-center gap-3">
-            <span className="h-[2px] w-8 bg-tortoise" />
-            <span className="eyebrow text-tortoise">{visit.label}</span>
+            <span className="h-[2px] w-8 bg-blue" />
+            <span className="eyebrow text-blue">{visit.label}</span>
           </div>
           <h2 className="display text-6xl leading-none tracking-tight text-ink sm:text-7xl">
             {visit.title.map((l, i) => (
-              <span key={l} className={`block ${i === visit.title.length - 1 ? "text-tortoise" : ""}`}>
+              <span key={l} className={`block ${i === visit.title.length - 1 ? "text-blue" : ""}`}>
                 {l}
               </span>
             ))}
@@ -43,7 +43,7 @@ export default function Visit() {
 
           <div className="mt-9 space-y-5">
             {visit.details.map((d) => (
-              <div key={d.label} className="border-l-2 border-tortoise/50 pl-5">
+              <div key={d.label} className="border-l-2 border-blue/50 pl-5">
                 <div className="eyebrow text-smoke">{d.label}</div>
                 <div className="mt-1 text-lg text-ink">{d.value}</div>
               </div>
@@ -55,7 +55,7 @@ export default function Visit() {
             href={wa}
             target="_blank"
             rel="noreferrer"
-            className="mt-10 inline-flex w-fit items-center gap-3 rounded-full bg-ink px-8 py-4 text-sm font-semibold tracking-wide text-canvas transition-colors hover:bg-tortoise"
+            className="mt-10 inline-flex w-fit items-center gap-3 rounded-full bg-ink px-8 py-4 text-sm font-semibold tracking-wide text-canvas transition-colors hover:bg-blue"
           >
             <svg viewBox="0 0 24 24" className="h-5 w-5 fill-canvas">
               <path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.2-3.6-.8-3-1.2-4.9-4.2-5-4.4-.2-.2-1.2-1.6-1.2-3s.8-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.6c-.2.2-.3.4-.1.7.2.3.8 1.4 1.8 2.2 1.2 1 2.3 1.4 2.6 1.5.3.2.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2.1 1c.3.1.5.2.6.4 0 .1 0 .7-.2 1.4z" />
@@ -75,7 +75,7 @@ export default function Visit() {
         >
           <motion.div
             variants={fadeUp}
-            className="lens-shine relative overflow-hidden rounded-3xl bg-tortoise p-10 text-canvas"
+            className="lens-shine relative overflow-hidden rounded-3xl bg-blue p-10 text-canvas"
           >
             <span className="pointer-events-none absolute -right-6 -top-12 select-none display text-[11rem] leading-none text-canvas/15">
               ✦

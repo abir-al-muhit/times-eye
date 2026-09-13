@@ -12,8 +12,8 @@ export default function Lenses() {
         <div className="mb-16 flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-end">
           <div>
             <div className="mb-5 flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-tortoise" />
-              <span className="eyebrow text-tortoise">The Lenses</span>
+              <span className="h-[2px] w-8 bg-blue" />
+              <span className="eyebrow text-blue">The Lenses</span>
             </div>
             <h2 className="display text-5xl leading-none tracking-tight text-ink sm:text-6xl lg:text-7xl">
               A lens for every
@@ -40,7 +40,7 @@ export default function Lenses() {
               key={l.id}
               variants={fadeUp}
               custom={i}
-              className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-panel transition-all duration-300 hover:-translate-y-1 hover:border-tortoise/50 hover:shadow-[0_24px_50px_-40px_rgba(32,26,19,0.4)]"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-panel transition-all duration-300 hover:-translate-y-1 hover:border-blue/50 hover:shadow-[0_24px_50px_-40px_rgba(32,26,19,0.4)]"
             >
               {/* lens panel */}
               <div className="relative m-3 h-40 overflow-hidden rounded-xl border border-line lens-shine" style={{ background: l.base }}>
@@ -72,14 +72,14 @@ export default function Lenses() {
                 <ul className="mt-4 space-y-2">
                   {l.features.map((f) => (
                     <li key={f} className="flex items-center gap-2.5 text-[13px] text-ink-soft">
-                      <span className="text-tortoise">▸</span>
+                      <span className="text-blue">▸</span>
                       {f}
                     </li>
                   ))}
                 </ul>
 
                 <div className="mt-auto flex items-center justify-between border-t border-line pt-4">
-                  <span className="display text-xl text-tortoise">{l.price}</span>
+                  <span className="display text-xl text-blue">{l.price}</span>
                   <span className="eyebrow text-smoke">FROM · DEMO</span>
                 </div>
               </div>

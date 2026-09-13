@@ -25,8 +25,8 @@ export default function Story() {
             className="lg:sticky lg:top-28 lg:self-start"
           >
             <div className="mb-5 flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-tortoise" />
-              <span className="eyebrow text-tortoise">{story.label}</span>
+              <span className="h-[2px] w-8 bg-blue" />
+              <span className="eyebrow text-blue">{story.label}</span>
             </div>
             <h2 className="display text-6xl leading-none tracking-tight text-ink sm:text-7xl">
               {story.title.map((l) => (
@@ -53,9 +53,9 @@ export default function Story() {
                 className="group border-t border-line py-8 last:border-b"
               >
                 <div className="flex items-baseline gap-5">
-                  <span className="display text-sm text-tortoise/70">0{i + 1}</span>
+                  <span className="display text-sm text-blue/70">0{i + 1}</span>
                   <div>
-                    <h3 className="display text-3xl tracking-wide text-ink transition-colors group-hover:text-tortoise">
+                    <h3 className="display text-3xl tracking-wide text-ink transition-colors group-hover:text-blue">
                       {v.t}
                     </h3>
                     <p className="mt-2 max-w-md text-[14px] leading-relaxed text-ink-soft">{v.d}</p>
@@ -78,9 +78,9 @@ export default function Story() {
             <motion.div
               key={p.label}
               variants={fadeUp}
-              className="rounded-2xl border border-line bg-panel p-7 text-center transition-colors hover:border-tortoise/40"
+              className="rounded-2xl border border-line bg-panel p-7 text-center transition-colors hover:border-blue/40"
             >
-              <div className="display text-4xl text-tortoise">{p.stat}</div>
+              <div className="display text-4xl text-blue">{p.stat}</div>
               <div className="eyebrow mt-3 text-smoke">{p.label}</div>
               <p className="mt-2 text-[12px] leading-relaxed text-ink-soft">{p.note}</p>
             </motion.div>

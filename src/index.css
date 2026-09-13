@@ -2,7 +2,7 @@
 
 /* ============================================================
    TIMES EYE — Warm Editorial Eyewear (LIGHT)
-   Canvas: warm ivory · Ink: espresso · Accent: tortoise-amber
+   Canvas: warm ivory · Ink: espresso · Accent: blue-amber
    A refined optician feel: generous whitespace, hairline rules,
    one signature accent, self-hosted Fraunces serif + Inter.
    ============================================================ */
@@ -34,8 +34,8 @@
   --color-smoke: #8a7f6f;       /* muted text / captions */
   --color-line: #e2d8c8;        /* hairlines & borders */
   --color-line-strong: #cfc2ad;
-  --color-tortoise: #a86a2a;    /* signature accent (amber) */
-  --color-tortoise-deep: #8a5220; /* hover accent */
+  --color-blue: #2f5fb0;        /* signature accent — optic blue (client brand is bluish) */
+  --color-blue-deep: #1f4688;   /* hover / selected accent */
   --color-inkband: #201a13;     /* dark ink band (marquee/footer) */
 
   --font-display: "Fraunces", Georgia, serif;
@@ -116,7 +116,7 @@ body {
 }
 
 ::selection {
-  background: var(--color-tortoise);
+  background: var(--color-blue);
   color: var(--color-canvas);
 }
 ::-webkit-scrollbar {
@@ -130,7 +130,7 @@ body {
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-tortoise);
+  background: var(--color-blue);
 }
 
 a {

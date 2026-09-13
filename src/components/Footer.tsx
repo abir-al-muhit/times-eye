@@ -14,15 +14,15 @@ export default function Footer() {
           {/* brand */}
           <div className="flex items-start gap-3">
             <svg viewBox="0 0 40 40" className="h-9 w-9" aria-hidden>
-              <g stroke="var(--color-tortoise)" strokeWidth="1.8" fill="none">
+              <g stroke="var(--color-blue)" strokeWidth="1.8" fill="none">
                 <path d="M3 20 C 10 8, 30 8, 37 20 C 30 32, 10 32, 3 20 Z" />
-                <circle cx="20" cy="20" r="7" fill="var(--color-tortoise)" />
+                <circle cx="20" cy="20" r="7" fill="var(--color-blue)" />
                 <circle cx="20" cy="20" r="2.4" fill="var(--color-canvas)" />
               </g>
             </svg>
             <div>
               <div className="display text-3xl leading-none tracking-[0.02em] text-ink">
-                TIMES<span className="text-tortoise"> EYE</span>
+                TIMES<span className="text-blue"> EYE</span>
               </div>
               <div className="mt-1 eyebrow text-smoke">{brand.tagline}</div>
             </div>
@@ -34,7 +34,7 @@ export default function Footer() {
               <button
                 key={item.id}
                 onClick={() => jump(item.id)}
-                className="eyebrow text-ink-soft transition-colors hover:text-tortoise"
+                className="eyebrow text-ink-soft transition-colors hover:text-blue"
               >
                 {item.label}
               </button>
@@ -43,10 +43,10 @@ export default function Footer() {
 
           {/* contact */}
           <div className="space-y-1 text-sm text-ink-soft">
-            <a href={`tel:${`+${brand.whatsapp}`}`} className="block hover:text-tortoise">
+            <a href={`tel:${`+${brand.whatsapp}`}`} className="block hover:text-blue">
               +{brand.whatsapp}
             </a>
-            <a href={`mailto:${brand.email}`} className="block hover:text-tortoise">
+            <a href={`mailto:${brand.email}`} className="block hover:text-blue">
               {brand.email}
             </a>
             <div className="text-smoke">{brand.location}</div>
@@ -65,7 +65,7 @@ export default function Footer() {
               href="https://matrocreative.studio"
               target="_blank"
               rel="noreferrer"
-              className="text-tortoise hover:text-tortoise-deep"
+              className="text-blue hover:text-blue-deep"
             >
               MATRO CREATIVE
             </a>

@@ -16,8 +16,8 @@ export default function Watches() {
             className="max-w-lg"
           >
             <div className="mb-4 flex items-center gap-3">
-              <span className="h-[2px] w-8 bg-tortoise" />
-              <span className="eyebrow text-tortoise">{watches.label}</span>
+              <span className="h-[2px] w-8 bg-blue" />
+              <span className="eyebrow text-blue">{watches.label}</span>
             </div>
             <h2 className="display text-4xl leading-none tracking-tight text-ink sm:text-5xl lg:text-6xl">
               {watches.title}
@@ -34,7 +34,7 @@ export default function Watches() {
           >
             {watches.items.map((w, i) => (
               <div key={w} className="flex items-center gap-3 rounded-2xl border border-line bg-white/50 px-6 py-5">
-                <span className="eyebrow text-tortoise">0{i + 1}</span>
+                <span className="eyebrow text-blue">0{i + 1}</span>
                 <span className="display text-xl text-ink">{w}</span>
               </div>
             ))}
