@@ -6,14 +6,19 @@ import FrameGlyph from "./FrameGlyph";
 import ProductDetail from "./ProductDetail";
 
 // SHOP — the store's core. Tabs (New Arrivals / Best Sellers /
-// Most Ordered) from ONE data file; each card opens a product
-// detail with prescription + lens selection.
+// Most Ordered) from ONE data file. Each card shows the frame as a
+// clean white "ghost product" with LIVE color swatches (the
+// GlassesBD color-changing idea) and a strikethrough sale price.
+// Click the card to open the product-build modal (prescription +
+// lens selection).
 export default function Shop() {
   const [active, setActive] = useState(tabs[0].id);
   const [sel, setSel] = useState<Piece | null>(null);
+  const [tone, setTone] = useState<Record<string, number>>({});
 
   const current = tabs.find((t) => t.id === active)!;
   const shown = pieces.filter(current.match);
+  const color = (p: Piece) => p.swatches[tone[p.id] ?? 0] ?? p.swatches[0];
 
   return (
     <section id="shop" className="relative border-y border-line bg-canvas py-24 lg:py-32">
@@ -64,44 +69,52 @@ export default function Shop() {
         >
           {shown.map((p, i) => (
             <motion.article key={p.id} variants={fadeUp} custom={i} className="group">
-              <button
+              {/* white ghost product card */}
+              <div
                 onClick={() => setSel(p)}
-                className="relative block aspect-[4/5] w-full overflow-hidden rounded-2xl border border-line bg-white text-left transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_26px_50px_-40px_rgba(32,26,19,0.45)]"
+                className="relative cursor-pointer rounded-2xl border border-line bg-white p-4 pb-3 shadow-[0_8px_30px_-18px_rgba(32,26,19,0.35)] transition-all duration-300 group-hover:-translate-y-1.5 group-hover:shadow-[0_26px_50px_-30px_rgba(32,26,19,0.5)]"
               >
-                <div className="absolute inset-0 flex items-center justify-center" style={{ background: `linear-gradient(160deg, ${p.tone}, #ffffff)` }}>
-                  <motion.div transition={{ duration: 0.4 }}>
-                    <FrameGlyph shape={p.shape} stroke={p.accent} fill="rgba(255,255,255,0.18)" className="w-40 h-40 md:w-48 md:h-48 group-hover:scale-105" />
+                <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-xl" style={{ background: `linear-gradient(160deg, ${p.tone}, #ffffff)` }}>
+                  <motion.div
+                    key={color(p)}
+                    initial={{ opacity: 0.6, scale: 0.98 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4 }}
+                  >
+                    <FrameGlyph shape={p.shape} stroke={color(p)} fill="rgba(255,255,255,0.25)" className="w-32 h-32 md:w-36 md:h-36" />
                   </motion.div>
+
+                  {p.tag && (
+                    <span className="absolute left-2.5 top-2.5 rounded-full bg-ink px-2.5 py-1 eyebrow text-[0.48rem] text-canvas">
+                      {p.tag}
+                    </span>
+                  )}
                 </div>
 
-                {p.tag && (
-                  <span className="absolute left-3 top-3 rounded-full bg-ink px-3 py-1 eyebrow text-[0.5rem] text-canvas">
-                    {p.tag}
-                  </span>
-                )}
-                {p.compareAt && (
-                  <span className="absolute right-3 top-3 rounded-full bg-blue/10 px-3 py-1 eyebrow text-[0.5rem] text-blue">
-                    SALE
-                  </span>
-                )}
-
-                <div className="absolute inset-x-0 bottom-0 translate-y-full p-3 transition-transform duration-300 group-hover:translate-y-0">
-                  <span className="block w-full rounded-full bg-ink py-3 text-center text-sm font-semibold text-canvas transition-colors group-hover:bg-blue">
-                    Customize · {p.price}
-                  </span>
+                {/* live color swatches */}
+                <div className="mt-3 flex items-center gap-2">
+                  {p.swatches.map((sw, si) => (
+                    <button
+                      key={sw}
+                      onClick={(e) => { e.stopPropagation(); setTone((m) => ({ ...m, [p.id]: si })); }}
+                      aria-label={`Color ${si + 1}`}
+                      className={`h-4 w-4 rounded-full border-2 transition-transform duration-200 ${si === (tone[p.id] ?? 0) ? "scale-110 border-blue" : "border-line-strong hover:scale-110"}`}
+                      style={{ background: sw }}
+                    />
+                  ))}
+                  <span className="ml-auto text-[10px] text-smoke">tap to change</span>
                 </div>
-              </button>
 
-              <div className="mt-3 flex items-start justify-between px-1">
-                <div>
-                  <h3 className="display text-lg text-ink">{p.name}</h3>
-                  <p className="text-xs text-smoke uppercase tracking-wide">
-                    {p.gender} · {p.category}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <span className="text-sm font-semibold text-ink-soft">{p.price}</span>
-                  {p.compareAt && <div className="text-[11px] text-smoke line-through">{p.compareAt}</div>}
+                {/* info */}
+                <div className="mt-2 flex items-start justify-between">
+                  <div>
+                    <h3 className="display text-base text-ink">{p.name}</h3>
+                    <p className="text-[11px] text-smoke uppercase tracking-wide">{p.lens} lens</p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-sm font-semibold text-ink-soft">{p.price}</span>
+                    {p.compareAt && <div className="text-[11px] text-smoke line-through">{p.compareAt}</div>}
+                  </div>
                 </div>
               </div>
             </motion.article>
@@ -109,7 +122,6 @@ export default function Shop() {
         </motion.div>
       </div>
 
-      {/* product detail / build modal */}
       <ProductDetail product={sel} onClose={() => setSel(null)} />
     </section>
   );

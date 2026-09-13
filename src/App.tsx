@@ -1,6 +1,7 @@
 import { CartProvider } from "./components/cart";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
+import Brands from "./components/Brands";
 import Marquee from "./components/Marquee";
 import Collections from "./components/Collections";
 import Shop from "./components/Shop";
@@ -10,11 +11,13 @@ import Story from "./components/Story";
 import Visit from "./components/Visit";
 import Footer from "./components/Footer";
 import CartDrawer from "./components/CartDrawer";
+import WhatsAppFab from "./components/WhatsAppFab";
 
 // TIMES EYE — premium eyewear flagship e-com.
-// Flow: hero slider → collections → shop (new/best/hot tabs) →
-// lenses → watches → why → visit. Each frame opens a product
-// detail with prescription + lens build. Cart → WhatsApp checkout.
+// Hero (real client banners) → brands → collections → shop (new/
+// best/hot tabs with live color swatches) → lenses → watches →
+// why → visit. Each frame opens a product-build modal (prescription
+// + lens). Cart → WhatsApp checkout; gateway later.
 export default function App() {
   return (
     <CartProvider>
@@ -23,6 +26,7 @@ export default function App() {
         <Nav />
         <main>
           <Hero />
+          <Brands />
           <Marquee />
           <Collections />
           <Shop />
@@ -33,6 +37,7 @@ export default function App() {
         </main>
         <Footer />
         <CartDrawer />
+        <WhatsAppFab />
       </div>
     </CartProvider>
   );

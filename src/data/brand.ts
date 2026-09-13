@@ -24,48 +24,58 @@ export const navbar = [
   { label: "Visit", id: "visit" },
 ];
 
-/* ---------------- HERO SLIDER ------------------------------ */
+/* ---------------- HERO SLIDER (real client banners) -------- */
 export type HeroSlide = {
   id: string;
+  img: string;
   kicker: string;
-  title: string;   // up to 3 words
+  title: string;
   line: string;
   cta: string;
-  tone: string;    // gradient base
-  frame: string;   // glyph stroke
-  shape: "aviator" | "round" | "square" | "cat";
+  scrollTo: string;
 };
 export const heroSlides: HeroSlide[] = [
   {
     id: "s1",
-    kicker: "NEW ARRIVALS",
-    title: "See the world in crisp blue cut.",
-    line: "Eyeglasses, sunglasses and pro lenses. Fitted properly, priced honestly, COD nationwide.",
-    cta: "Shop the new",
-    tone: "linear-gradient(140deg,#dde6f5,#eef2f8)",
-    frame: "#2f5fb0",
-    shape: "aviator",
+    img: "/img/banner-1.webp",
+    kicker: "THE FASHION EDIT",
+    title: "Light, layered, honestly priced.",
+    line: "Premium frames, watches and pro-grade lenses — crystal white, blue cut, multi-coated, photosun and more.",
+    cta: "Shop eyewear",
+    scrollTo: "shop",
   },
   {
     id: "s2",
-    kicker: "COLLECTIONS",
-    title: "Frames for every face.",
-    line: "Men's, women's, premium and custom — a shape for every personality and budget.",
-    cta: "Browse collections",
-    tone: "linear-gradient(140deg,#f0e6d6,#f6efe3)",
-    frame: "#a86a2a",
-    shape: "round",
+    img: "/img/banner-2.webp",
+    kicker: "NEW ARRIVALS",
+    title: "Blue cut, clearer days.",
+    line: "Filter harmful screen light and see sharper — flagship frames with pro lenses, fitted properly.",
+    cta: "Browse new",
+    scrollTo: "shop",
   },
   {
     id: "s3",
-    kicker: "PREMIUM LENSES",
-    title: "Photosun that adapts with you.",
-    line: "Clear indoors, tinted outdoors. Multi-coated, blue cut, and more.",
-    cta: "Explore lenses",
-    tone: "linear-gradient(140deg,#dfeae0,#edf3ee)",
-    frame: "#3c6e3f",
-    shape: "square",
+    img: "/img/banner-3.webp",
+    kicker: "PREMIUM EYEWEAR & WATCHES",
+    title: "A store that fits you right.",
+    line: "Gazipur's trusted eyewear house — wide stock, real guidance, COD nationwide.",
+    cta: "Find the store",
+    scrollTo: "visit",
   },
+  {
+    id: "s4",
+    img: "/img/banner-4.webp",
+    kicker: "THE COLLECTION",
+    title: "Men's. Women's. Custom.",
+    line: "From everyday steel to statement frames — a shape and a lens for every face.",
+    cta: "Shop collections",
+    scrollTo: "collections",
+  },
+];
+
+/* ---------------- POPULAR BRANDS ------------------------- */
+export const brands = [
+  "Times", "Casio", "Titan", "Ray-Ban", "Fastrack", "Adidas", "Tommy Hilfiger", "Arnette",
 ];
 
 /* ---------------- COLLECTIONS ------------------------------ */
@@ -128,20 +138,21 @@ export type Piece = {
   price: string;
   compareAt?: string;
   tag?: string;   // "New" | "Bestseller" | "Hot"
+  swatches: string[]; // frame color chips (GlassesBD "color changing")
   tone: string;
   accent: string;
   shape: string;
 };
 export const pieces: Piece[] = [
-  { id: "e1", name: "Aviator", brand: "Times", category: "Sunglasses", gender: "Men", frame: "#8a8f98", lens: "Polarized", price: "৳ 1,250", compareAt: "৳ 1,600", tag: "Bestseller", tone: "#e3e8ef", accent: "#2f5fb0", shape: "aviator" },
-  { id: "e2", name: "Wayfarer", brand: "Times", category: "Eyeglasses", gender: "Unisex", frame: "#1c1c1c", lens: "Blue Cut", price: "৳ 1,150", tag: "New", tone: "#ece7db", accent: "#3c5a8a", shape: "aviator" },
-  { id: "e3", name: "Round Classic", brand: "Times", category: "Eyeglasses", gender: "Women", frame: "#9a6b3f", lens: "Clear", price: "৳ 950", tag: "Hot", tone: "#f0e2d0", accent: "#a86a2a", shape: "round" },
-  { id: "e4", name: "Square Minimal", brand: "Times", category: "Eyeglasses", gender: "Men", frame: "#6b7780", lens: "Clear", price: "৳ 850", tone: "#e7e9ec", accent: "#5c6b7a", shape: "square" },
-  { id: "e5", name: "Cat-Eye", brand: "Times", category: "Sunglasses", gender: "Women", frame: "#c9a05a", lens: "Photosun", price: "৳ 1,300", tag: "Bestseller", tone: "#f3e6cf", accent: "#b9863f", shape: "cat" },
-  { id: "e6", name: "Oversize", brand: "Times", category: "Sunglasses", gender: "Women", frame: "#1c1c1c", lens: "Blue Cut", price: "৳ 1,050", tag: "New", tone: "#e5e5e7", accent: "#3c5a8a", shape: "square" },
-  { id: "e7", name: "DuraFlex", brand: "Times", category: "Eyeglasses", gender: "Men", frame: "#2f5fb0", lens: "Multi-Coated", price: "৳ 1,400", tag: "Hot", tone: "#dfe6f2", accent: "#2f5fb0", shape: "round" },
-  { id: "e8", name: "Retro Double", brand: "Times", category: "Eyeglasses", gender: "Unisex", frame: "#8a5a2b", lens: "Blue Cut + Photosun", price: "৳ 1,600", compareAt: "৳ 1,900", tone: "#efe6d2", accent: "#a86a2a", shape: "round" },
-  { id: "e9", name: "Titan Slim", brand: "Times", category: "Eyeglasses", gender: "Unisex", frame: "#c9a05a", lens: "Clear", price: "৳ 1,750", tag: "Premium", tone: "#efe8da", accent: "#b9863f", shape: "square" },
+  { id: "e1", name: "Aviator", brand: "Times", category: "Sunglasses", gender: "Men", frame: "#8a8f98", lens: "Polarized", price: "৳ 1,250", compareAt: "৳ 1,600", tag: "Bestseller", swatches: ["#8a8f98", "#1c1c1c", "#c9a05a"], tone: "#e3e8ef", accent: "#2f5fb0", shape: "aviator" },
+  { id: "e2", name: "Wayfarer", brand: "Times", category: "Eyeglasses", gender: "Unisex", frame: "#1c1c1c", lens: "Blue Cut", price: "৳ 1,150", tag: "New", swatches: ["#1c1c1c", "#c9a05a", "#9a6b3f"], tone: "#ece7db", accent: "#3c5a8a", shape: "aviator" },
+  { id: "e3", name: "Round Classic", brand: "Times", category: "Eyeglasses", gender: "Women", frame: "#9a6b3f", lens: "Clear", price: "৳ 950", tag: "Hot", swatches: ["#9a6b3f", "#1c1c1c", "#c9a05a"], tone: "#f0e2d0", accent: "#a86a2a", shape: "round" },
+  { id: "e4", name: "Square Minimal", brand: "Times", category: "Eyeglasses", gender: "Men", frame: "#6b7780", lens: "Clear", price: "৳ 850", swatches: ["#6b7780", "#1c1c1c", "#c9a05a"], tone: "#e7e9ec", accent: "#5c6b7a", shape: "square" },
+  { id: "e5", name: "Cat-Eye", brand: "Times", category: "Sunglasses", gender: "Women", frame: "#c9a05a", lens: "Photosun", price: "৳ 1,300", tag: "Bestseller", swatches: ["#c9a05a", "#1c1c1c", "#9a6b3f"], tone: "#f3e6cf", accent: "#b9863f", shape: "cat" },
+  { id: "e6", name: "Oversize", brand: "Times", category: "Sunglasses", gender: "Women", frame: "#1c1c1c", lens: "Blue Cut", price: "৳ 1,050", tag: "New", swatches: ["#1c1c1c", "#c9a05a", "#6b7780"], tone: "#e5e5e7", accent: "#3c5a8a", shape: "square" },
+  { id: "e7", name: "DuraFlex", brand: "Times", category: "Eyeglasses", gender: "Men", frame: "#2f5fb0", lens: "Multi-Coated", price: "৳ 1,400", tag: "Hot", swatches: ["#2f5fb0", "#1c1c1c", "#9a6b3f"], tone: "#dfe6f2", accent: "#2f5fb0", shape: "round" },
+  { id: "e8", name: "Retro Double", brand: "Times", category: "Eyeglasses", gender: "Unisex", frame: "#8a5a2b", lens: "Blue Cut + Photosun", price: "৳ 1,600", compareAt: "৳ 1,900", swatches: ["#8a5a2b", "#1c1c1c", "#c9a05a"], tone: "#efe6d2", accent: "#a86a2a", shape: "round" },
+  { id: "e9", name: "Titan Slim", brand: "Times", category: "Eyeglasses", gender: "Unisex", frame: "#c9a05a", lens: "Clear", price: "৳ 1,750", tag: "Premium", swatches: ["#c9a05a", "#1c1c1c", "#6b7780"], tone: "#efe8da", accent: "#b9863f", shape: "square" },
 ];
 
 /* shop tabs: which pieces appear under each filter */

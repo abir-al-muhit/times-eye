@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Piece } from "../data/brand";
-import { frameTones, lensTypes } from "../data/brand";
+import { lensTypes } from "../data/brand";
 import { useCart } from "./cart";
 import FrameGlyph from "./FrameGlyph";
 
@@ -17,8 +17,12 @@ export default function ProductDetail({ product, onClose }: Props) {
   const [needRx, setNeedRx] = useState(false);
   const [rx, setRx] = useState("");
   const [lens, setLens] = useState(lensTypes[1]); // default Blue Cut
-  const [frame, setFrame] = useState(frameTones[0]);
+  const [frameIdx, setFrameIdx] = useState(0);
   const [qty, setQty] = useState(1);
+
+  const swatches = product?.swatches ?? ["#201a13"];
+  const frameIdxName = ["Onyx", "Tortoise", "Gunmetal", "Gold", "Clear", "Classic"][frameIdx] ?? `Color ${frameIdx + 1}`;
+  const frameStroke = swatches[frameIdx] ?? "#201a13";
 
   const lensCost = lens && lens.price ? Number(lens.price.replace(/[^\d]/g, "")) : 0;
   const productCost = product ? Number(product.price.replace(/[^\d]/g, "")) : 0;
@@ -28,16 +32,16 @@ export default function ProductDetail({ product, onClose }: Props) {
     () =>
       product
         ? `${product.name} · ${product.category} · ${product.gender}\n` +
-          `Frame: ${frame.name}\nLens: ${lens.name} (+${lens.price})\n` +
+          `Frame: ${frameIdxName}\nLens: ${lens.name} (+${lens.price})\n` +
           (needRx ? `Prescription: ${rx || "(to be provided)"}\n` : "") +
           `Qty: ${qty}`
         : "",
-    [product, frame, lens, needRx, rx, qty],
+    [product, frameIdxName, lens, needRx, rx, qty],
   );
 
   const addToBag = () => {
     if (!product) return;
-    add(product, { label: `${frame.name} · ${lens.name}${needRx ? " · Rx" : ""}`, qty, note: summary });
+    add(product, { label: `${frameIdxName} · ${lens.name}${needRx ? " · Rx" : ""}`, qty, note: summary });
     onClose();
   };
 
@@ -74,7 +78,7 @@ export default function ProductDetail({ product, onClose }: Props) {
               {/* LEFT visual */}
               <div className="rounded-2xl border border-line bg-white p-8">
                 <div className="flex items-center justify-center" style={{ background: product.tone }}>
-                  <FrameGlyph shape={product.shape} stroke={product.accent} fill="rgba(255,255,255,0.2)" className="w-56 h-56" />
+                  <FrameGlyph shape={product.shape} stroke={frameStroke} fill="rgba(255,255,255,0.2)" className="w-56 h-56" />
                 </div>
                 <div className="mt-6">
                   <div className="flex items-center justify-between">
@@ -92,13 +96,13 @@ export default function ProductDetail({ product, onClose }: Props) {
                 {/* live frame swatches */}
                 <div className="mt-5 flex items-center gap-3">
                   <span className="eyebrow text-smoke">FRAME</span>
-                  {frameTones.map((f) => (
+                  {swatches.map((sw, si) => (
                     <button
-                      key={f.id}
-                      onClick={() => setFrame(f)}
-                      aria-label={f.name}
-                      className={`h-7 w-7 rounded-full border-2 transition-transform duration-200 ${frame.id === f.id ? "scale-110 border-blue" : "border-line-strong"}`}
-                      style={{ background: f.stroke }}
+                      key={sw + si}
+                      onClick={() => setFrameIdx(si)}
+                      aria-label={`Frame color ${si + 1}`}
+                      className={`h-7 w-7 rounded-full border-2 transition-transform duration-200 ${frameIdx === si ? "scale-110 border-blue" : "border-line-strong"}`}
+                      style={{ background: sw }}
                     />
                   ))}
                 </div>
