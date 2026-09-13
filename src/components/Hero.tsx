@@ -1,123 +1,102 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { heroSlides } from "../data/brand";
-import { EASE } from "./anim";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-// HERO — real client banners as a slide carousel in a SPLIT layout.
-// Left = solid ivory copy panel (headline + CTAs always legible),
-// right = the banner image in its own column. Text never overlaps
-// the photo — guaranteed clean, matches the client's split reference.
+const ease = [0.16, 1, 0.3, 1] as const;
+
+// HERO — full-width banner slider (the exact pattern from the
+// proven Basic Collection store). The image fills an aspect-ratio
+// container with object-cover so it always fits ANY screen —
+// desktop, tablet, mobile. Caption sits overlaid at bottom-left
+// with small retail typography. No split, no huge headline.
 export default function Hero() {
-  const [i, setI] = useState(0);
-  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
-  const n = heroSlides.length;
-
-  const go = useCallback((next: number) => setI(((next % n) + n) % n), [n]);
+  const [index, setIndex] = useState(0);
+  const count = heroSlides.length;
 
   useEffect(() => {
-    timer.current = setInterval(() => setI((p) => (p + 1) % n), 5600);
-    return () => { if (timer.current) clearInterval(timer.current); };
-  }, [n]);
+    if (count < 2) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % count), 5200);
+    return () => clearInterval(id);
+  }, [count]);
 
-  const reset = () => { if (timer.current) clearInterval(timer.current); };
+  const go = (dir: number) => setIndex((i) => (i + dir + count) % count);
 
   const jump = (id: string) => {
     const el = document.querySelector(`#${id}`) as HTMLElement | null;
     if (el) window.__lenis?.scrollTo(el, { offset: -70 });
   };
 
-  const slide = heroSlides[i];
+  const slide = heroSlides[index];
 
   return (
-    <section id="top" className="relative flex min-h-[92vh] flex-col overflow-hidden md:pt-16">
-      {/* split: text + banner */}
-      <div className="grid flex-1 lg:grid-cols-2">
-        {/* LEFT — ivory copy panel */}
-        <div className="order-2 flex min-h-[52vh] items-center bg-canvas px-5 py-12 lg:order-1 lg:min-h-0 lg:px-10">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={slide.id}
-              initial={{ opacity: 0, y: 26 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -18 }}
-              transition={{ duration: 0.55, ease: EASE }}
-              className="mx-auto w-full max-w-2xl"
-            >
-              <div className="mb-6 flex items-center gap-3">
-                <span className="h-[2px] w-10 bg-blue" />
-                <span className="eyebrow text-blue">{slide.kicker}</span>
-              </div>
-              <h1 className="display text-[min(14vw,12vh)] leading-[0.96] tracking-tight text-ink lg:text-[min(5.5rem,14vh)]">
+    <section className="mx-auto w-full max-w-6xl px-4 pt-5 md:px-6 md:pt-8">
+      <div className="relative overflow-hidden rounded-2xl md:rounded-3xl">
+        <AnimatePresence mode="popLayout">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease }}
+            className="relative aspect-[16/9] w-full overflow-hidden bg-card"
+          >
+            <img
+              src={slide.img}
+              alt={slide.title}
+              className="h-full w-full object-cover"
+            />
+            {/* caption — bottom-left, over the image, small type */}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent p-4 sm:p-6 md:p-8">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#c9a34e] sm:text-[11px]">
+                {slide.kicker}
+              </span>
+              <h2 className="mt-1 font-display text-xl font-bold leading-tight text-white sm:text-3xl md:text-4xl">
                 {slide.title}
-              </h1>
-              <p className="mt-6 max-w-lg text-[15px] leading-relaxed text-ink-soft">{slide.line}</p>
-
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <button
-                  onClick={() => jump(slide.scrollTo)}
-                  className="group inline-flex items-center gap-3 rounded-full bg-ink px-8 py-4 text-sm font-semibold tracking-wide text-canvas transition-colors hover:bg-blue"
-                >
-                  {slide.cta}
-                  <span className="transition-transform group-hover:translate-x-1">→</span>
-                </button>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* RIGHT — banner image column */}
-        <div className="order-1 lg:order-2">
-          <AnimatePresence>
-            <motion.div
-              key={slide.id}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: EASE }}
-              className="relative h-[46vh] sm:h-[52vh] lg:h-full lg:min-h-[80vh]"
-            >
-              <img
-                src={slide.img}
-                alt={slide.title}
-                className="h-full w-full object-cover object-center"
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
-
-      {/* arrows + dots */}
-      <div className="flex items-center justify-between border-t border-line bg-canvas px-5 py-4 lg:px-10">
-        <div className="flex items-center gap-2">
-          {heroSlides.map((s) => {
-            const idx = heroSlides.indexOf(s);
-            return (
+              </h2>
+              <p className="mt-1 hidden max-w-xl text-sm text-white/85 sm:block md:text-base">
+                {slide.line}
+              </p>
               <button
-                key={s.id}
-                onClick={() => { reset(); go(idx); }}
-                aria-label={`Slide ${idx + 1}`}
-                className={`h-2 rounded-full transition-all duration-300 ${s.id === slide.id ? "w-8 bg-blue" : "w-2 bg-line-strong"}`}
-              />
-            );
-          })}
-        </div>
-        <span className="eyebrow hidden text-smoke sm:block">TRUSTED EYEWEAR · GAZIPUR, DHAKA</span>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => { reset(); go(i - 1); }}
-            aria-label="Previous"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-line-strong bg-white text-ink transition-colors hover:border-blue hover:text-blue"
-          >
-            ←
-          </button>
-          <button
-            onClick={() => { reset(); go(i + 1); }}
-            aria-label="Next"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-line-strong bg-white text-ink transition-colors hover:border-blue hover:text-blue"
-          >
-            →
-          </button>
-        </div>
+                onClick={() => jump(slide.scrollTo)}
+                className="mt-3 inline-flex items-center gap-2 rounded-full bg-[#c9a34e] px-4 py-2 text-xs font-semibold text-[#101014] transition-colors hover:brightness-110 sm:px-5 sm:py-2.5 sm:text-sm"
+              >
+                {slide.cta} →
+              </button>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {count > 1 && (
+          <>
+            <button
+              onClick={() => go(-1)}
+              aria-label="Previous banner"
+              className="absolute left-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-white/20 text-white backdrop-blur transition-colors hover:bg-white/35 sm:left-3 sm:h-10 sm:w-10"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={() => go(1)}
+              aria-label="Next banner"
+              className="absolute right-2 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-white/20 text-white backdrop-blur transition-colors hover:bg-white/35 sm:right-3 sm:h-10 sm:w-10"
+            >
+              <ChevronRight size={20} />
+            </button>
+            <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
+              {heroSlides.map((s, i) => (
+                <button
+                  key={s.id}
+                  onClick={() => setIndex(i)}
+                  aria-label={`Banner ${i + 1}`}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === index ? "w-6 bg-[#c9a34e]" : "w-1.5 bg-white/50 hover:bg-white/80"
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

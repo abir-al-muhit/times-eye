@@ -15,9 +15,9 @@ export default function Brands() {
           className="flex flex-col items-center gap-6"
         >
           <span className="eyebrow text-smoke">Our Popular Brands</span>
-          <div className="flex w-full flex-wrap items-center justify-center gap-x-10 gap-y-4">
+          <div className="flex w-full flex-wrap items-center justify-center gap-x-8 gap-y-3">
             {brands.map((b) => (
-              <span key={b} className="display text-xl text-ink/45 transition-colors hover:text-ink">
+              <span key={b} className="display text-lg text-ink/50 transition-colors hover:text-ink">
                 {b}
               </span>
             ))}
